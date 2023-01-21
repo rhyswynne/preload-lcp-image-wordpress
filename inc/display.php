@@ -20,7 +20,6 @@ function preload_lcp_display_header()
 
             if ($webp) {
                 $image_type = preload_lcp_get_image_type_from_url($lcp_url);
-
                 $lcp_url = str_replace('.' . $image_type, '.webp', $lcp_url);
                 $srcset = str_replace('.' . $image_type, '.webp', $srcset);
             }
@@ -31,19 +30,30 @@ function preload_lcp_display_header()
 
 
         if ($lcp_url) {
-            $mime       = wp_get_image_mime($lcp_url);
-            $as_array   = explode("/", $mime);
-            $astype     = false;
 
-            if (!empty($as_array)) {
-                $astype = $as_array[0];
+            $astype     = false;
+            $mime       = false;
+            $imagesize  = wp_getimagesize($lcp_url);
+
+            if ( !empty( $imagesize ) ) {
+
+                $mime       = wp_get_image_mime($lcp_url);
+                $as_array   = explode("/", $mime);
+
+                if (!empty($as_array)) {
+                    $astype = $as_array[0];
+                }
             }
+
+
+
+
 ?>
             <!-- Preload LCP Element - WordPress Plugin -->
-            <link rel="preload" fetchpriority="high" as="<?php echo $astype; ?>" href="<?php echo $lcp_url; ?>" <?php if ($mime) {
-                                                                                                                    echo 'type="' . $mime . '"';
-                                                                                                                } ?> <?php if ($srcset) {
-                                                                                                                            echo 'imagesrcset="' . $srcset . '"';
+            <link rel="preload" fetchpriority="high" as="<?php echo esc_attr($astype); ?>" href="<?php echo esc_attr($lcp_url); ?>" <?php if ($mime) {
+                                                                                                                                            echo 'type="' . esc_attr($mime) . '"';
+                                                                                                                                        } ?> <?php if ($srcset) {
+                                                                                                                            echo 'imagesrcset="' . esc_attr($srcset) . '"';
                                                                                                                         } ?>>
             <!-- / Preload LCP Element - WordPress Plugin -->
 <?php

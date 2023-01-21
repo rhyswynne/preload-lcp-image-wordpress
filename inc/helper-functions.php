@@ -12,6 +12,13 @@
 function preload_lcp_check_if_webp_exists($image_id)
 {
     $image_url   = wp_get_attachment_image_url($image_id, 'full');
+
+    $image_size  = wp_getimagesize($image_url);
+
+    if ( empty( $image_size ) ) {
+        return false;
+    }
+
     $image_type  = preload_lcp_get_image_type_from_url($image_url);
     $image_path  = get_attached_file($image_id);
     $webp_path   = str_replace('.' . $image_type, '.webp', $image_path);

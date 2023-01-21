@@ -88,7 +88,7 @@ function preload_lcp_metabox_save_postdata($post_id)
         update_post_meta(
             $post_id,
             'lcp_url_preload',
-            $_POST['lcp_url_preload']
+            esc_attr( $_POST['lcp_url_preload'] )
         );
     }
 
@@ -96,7 +96,7 @@ function preload_lcp_metabox_save_postdata($post_id)
         update_post_meta(
             $post_id,
             'lcp_id_preload',
-            $_POST['lcp_id_preload']
+            esc_attr( $_POST['lcp_id_preload'] )
         );
     }
 }
