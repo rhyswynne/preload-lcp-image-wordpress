@@ -15,7 +15,7 @@ function preload_lcp_enqueue_on_option_page() {
  *
  * @return void
  */
-function preload_lcp_custom_admin_style() {
+function preload_lcp_enqueue_custom_admin_style() {
     wp_register_style( 'preload_lcp_css', DR_PRELOAD_LCP_URL . '/inc/css/admin-style.css', false, '1.0.0' );
     wp_enqueue_style( 'preload_lcp_css' );
 }

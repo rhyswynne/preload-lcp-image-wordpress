@@ -66,7 +66,7 @@ function preload_lcp_post_type_settings_render()
                 $checkedval = "";
             }
 ?>
-            <input type='checkbox' name='preload_lcp_image_settings[preload_lcp_post_type_settings][]' value='<?php echo $post_type->name; ?>' <?php echo $checkedval; ?>><?php echo $post_type->label; ?><br />
+            <input type='checkbox' name='preload_lcp_image_settings[preload_lcp_post_type_settings][]' value='<?php echo esc_attr( $post_type->name ); ?>' <?php echo esc_attr( $checkedval ); ?>><?php echo esc_attr( $post_type->label ); ?><br />
     <?php
         }
     }
