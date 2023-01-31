@@ -2,11 +2,11 @@
 
 /*
 Plugin Name: Preload LCP Image
-Plugin URI: 
+Plugin URI: https://dwinrhys.com/preload-largest-contentful-paint-image-wordpress-plugin/?utm_source=wordpressorgplugin&utm_medium=wordpress&utm_campaign=preload_lcp
 Description: Plugin to preload the LCP element within WordPress
 Version: 1.0
 Author: Dwi'n Rhys
-Author URI: https://dwinrhys.com/
+Author URI: https://dwinrhys.com/?utm_source=wordpressorgplugin&utm_medium=wordpress&utm_campaign=preload_lcp
 */
 
 define( 'DR_PRELOAD_LCP_PATH', dirname( __FILE__ ) );
