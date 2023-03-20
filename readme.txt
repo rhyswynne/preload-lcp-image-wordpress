@@ -2,9 +2,9 @@
 Contributors: rhyswynne
 Tags: LCP, preload, wordpress, site speed, site optimisation, Largest Contentful Paint
 Requires at least: 6.1.1
-Tested up to: 6.1.1
+Tested up to: 6.2
 Requires PHP: 8.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -17,7 +17,7 @@ This plugin will add the ability to preload the largest contentful paint (LCP) I
 I offer support in two places:-
 
 * For urgent (paid for) support, please [contact me directly](https://dwinrhys.com/contact-me/?utm_source=wordpressorgtext&utm_medium=wordpress&utm_campaign=preload_lcp).
-* For not so urgent support, please use the WordPress.org forums.
+* For not so urgent support, please use the [WordPress.org forums](https://wordpress.org/support/plugin/preload-lcp-image/).
 
 = On Github =
 This project is now on github, [you can view the repository here](https://github.com/rhyswynne/preload-lcp-image-wordpress). There are other versions, but this is the one I've put up, so where all the developmental will be tracked.
@@ -33,6 +33,8 @@ Should you wish to use this plugin for custom post types, go to Settings > Prelo
 For more guidance on how to determine the URL to use, please use [my guide on how to determining the LCP image for a WordPress post](https://dwinrhys.com/preload-largest-contentful-paint-image-wordpress-plugin/?utm_source=wordpressorgtext&utm_medium=wordpress&utm_campaign=preload_lcp#determining-the-lcp-image)
 
 == Changelog ==
+= 1.0.1 =
+* Tested with WordPress 6.2
 
 = 1.0 =
 * First Public Release 
