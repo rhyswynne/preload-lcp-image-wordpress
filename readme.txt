@@ -4,7 +4,7 @@ Tags: LCP, preload, wordpress, site speed, site optimisation, Largest Contentful
 Requires at least: 6.1.1
 Tested up to: 6.4
 Requires PHP: 8.0
-Stable tag: 1.0.2
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -33,6 +33,9 @@ Should you wish to use this plugin for custom post types, go to Settings > Prelo
 For more guidance on how to determine the URL to use, please use [my guide on how to determining the LCP image for a WordPress post](https://dwinrhys.com/preload-largest-contentful-paint-image-wordpress-plugin/?utm_source=wordpressorgtext&utm_medium=wordpress&utm_campaign=preload_lcp#determining-the-lcp-image)
 
 == Changelog ==
+= 1.1 =
+* Allow the ability to specify different URLs for mobile or desktop viewpoints.
+
 = 1.0.3 =
 * Tested with WordPress 6.4
 

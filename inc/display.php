@@ -8,8 +8,25 @@ function preload_lcp_display_header()
 
     if (is_singular()) {
 
+        if ( wp_is_mobile() ) {
+            $id_field = 'lcp_mobile_id_preload';
+            $url_field = 'lcp_mobile_url_preload';
+
+            $temp_lcp_id  = get_post_meta( get_the_id(), $id_field, true);
+            $temp_lcp_url = get_post_meta( get_the_id(), $url_field, true);
+
+            if ( !$temp_lcp_id && !$temp_lcp_url ) {
+                $id_field = 'lcp_id_preload';
+                $url_field = 'lcp_url_preload';
+            }
+
+        } else {
+            $id_field = 'lcp_id_preload';
+            $url_field = 'lcp_url_preload';
+        }
+
         // We're going to begin with ID, but fall back to url
-        $lcp_id     = get_post_meta(get_the_id(), 'lcp_id_preload', true);
+        $lcp_id     = get_post_meta(get_the_id(), $id_field, true);
         $lcp_url    = '';
 
         if ($lcp_id) {
@@ -24,7 +41,7 @@ function preload_lcp_display_header()
                 $srcset = str_replace('.' . $image_type, '.webp', $srcset);
             }
         } else {
-            $lcp_url = get_post_meta(get_the_id(), 'lcp_url_preload', true);
+            $lcp_url = get_post_meta(get_the_id(), $url_field, true);
             $srcset  = false;
         }
 

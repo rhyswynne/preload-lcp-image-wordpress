@@ -31,6 +31,8 @@ function preload_lcp_metabox_html()
     $lcp_url    = get_post_meta($post->ID, 'lcp_url_preload', true);
     $lcp_id     = get_post_meta( $post->ID, 'lcp_id_preload', true );
     
+    $lcp_mobile_url = get_post_meta($post->ID, 'lcp_mobile_url_preload', true);
+    $lcp_mobile_id  = get_post_meta( $post->ID, 'lcp_mobile_id_preload', true );
 ?>
 
     <fieldset class="lcp-metabox-fieldset">
@@ -60,6 +62,28 @@ function preload_lcp_metabox_html()
              */
             ?>
             <button type="button" class="button" id="lcp_find_media_url_button" data-media-uploader-target="#lcp_url_preload"  data-media-uploader-id="#lcp_id_preload"><?php _e('Find Image to Preload', 'myplugin') ?></button>
+
+        </div>
+        <div>
+            <label for="lcp_url_mobile_preload"><?php _e('URL of the Image for Mobile', 'preload_lcp') ?></label><br>
+
+            <?php
+            /**
+             * The actual field that will hold the URL for our file
+             */
+            ?>
+            <p class="description"><?php _e('Should you wish to specify a different image to preload on mobile, you can do so here. If left blank, the image set in the "URL of the Image" will be used. Use this if the image is fundamentally different on mobile.', 'preload_lcp') ?></p>
+            <input type="url" class="large-text" name="lcp_mobile_url_preload" id="lcp_mobile_url_preload" value="<?php echo esc_attr($lcp_mobile_url); ?>"><br>
+            <input type="hidden" name="lcp_mobile_id_preload" id="lcp_mobile_id_preload" value="<?php echo esc_attr($lcp_mobile_id); ?>"><br>
+
+            <?php
+            /**
+             * The button that opens our media uploader
+             * The `data-media-uploader-target` value should match the ID/unique selector of your field.
+             * We'll use this value to dynamically inject the file URL of our uploaded media asset into your field once successful (in the myplugin-media.js file)
+             */
+            ?>
+            <button type="button" class="button" id="lcp_find_media_url_button" data-media-uploader-target="#lcp_mobile_url_preload"  data-media-uploader-id="#lcp_mobile_id_preload"><?php _e('Find Image to Preload', 'myplugin') ?></button>
         </div>
 
     </fieldset>
@@ -97,6 +121,22 @@ function preload_lcp_metabox_save_postdata($post_id)
             $post_id,
             'lcp_id_preload',
             sanitize_text_field( $_POST['lcp_id_preload'] )
+        );
+    }
+
+    if (array_key_exists('lcp_mobile_url_preload', $_POST)) {
+        update_post_meta(
+            $post_id,
+            'lcp_mobile_url_preload',
+            sanitize_url( $_POST['lcp_mobile_url_preload'] )
+        );
+    }
+
+    if (array_key_exists('lcp_mobile_id_preload', $_POST)) {
+        update_post_meta(
+            $post_id,
+            'lcp_mobile_id_preload',
+            sanitize_text_field( $_POST['lcp_mobile_id_preload'] )
         );
     }
 }
