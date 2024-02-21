@@ -9,8 +9,9 @@ function preload_lcp_display_header()
     if (is_singular()) {
 
         if ( wp_is_mobile() ) {
-            $id_field = 'lcp_mobile_id_preload';
-            $url_field = 'lcp_mobile_url_preload';
+            $id_field       = 'lcp_mobile_id_preload';
+            $url_field      = 'lcp_mobile_url_preload';
+            $force_as_field = 'lcp_mobile_force_as';
 
             $temp_lcp_id  = get_post_meta( get_the_id(), $id_field, true);
             $temp_lcp_url = get_post_meta( get_the_id(), $url_field, true);
@@ -21,8 +22,9 @@ function preload_lcp_display_header()
             }
 
         } else {
-            $id_field = 'lcp_id_preload';
-            $url_field = 'lcp_url_preload';
+            $id_field       = 'lcp_id_preload';
+            $url_field      = 'lcp_url_preload';
+            $force_as_field = 'lcp_force_as';
         }
 
         // We're going to begin with ID, but fall back to url
@@ -63,15 +65,25 @@ function preload_lcp_display_header()
             }
 
 
+            // If we want to force the "As" type, then we shall
+            if ( !$astype ) {
+                if ( get_post_meta(get_the_ID(), $force_as_field, true) ) {
+                    $astype = 'image';
+                }
+            }
 
 
 ?>
             <!-- Preload LCP Element - WordPress Plugin -->
-            <link rel="preload" fetchpriority="high" as="<?php echo esc_attr($astype); ?>" href="<?php echo esc_attr($lcp_url); ?>" <?php if ($mime) {
-                                                                                                                                            echo 'type="' . esc_attr($mime) . '"';
-                                                                                                                                        } ?> <?php if ($srcset) {
-                                                                                                                            echo 'imagesrcset="' . esc_attr($srcset) . '"';
-                                                                                                                        } ?>>
+            <link rel="preload" fetchpriority="high" 
+            
+            <?php if ( $astype ) { ?> as="<?php echo esc_attr($astype); ?>" <?php } ?> 
+            
+            href="<?php echo esc_attr($lcp_url); ?>" 
+            
+            <?php if ($mime) { echo 'type="' . esc_attr($mime) . '"'; } ?> 
+            
+            <?php if ($srcset) { echo 'imagesrcset="' . esc_attr($srcset) . '"'; } ?>>
             <!-- / Preload LCP Element - WordPress Plugin -->
 <?php
         }
