@@ -1,10 +1,10 @@
 === Preload LCP Image ===
 Contributors: rhyswynne
-Tags: LCP, preload, wordpress, site speed, site optimisation, Largest Contentful Paint
+Tags: LCP, preload, site speed, site optimisation, Largest Contentful Paint
 Requires at least: 6.1.1
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 8.0
-Stable tag: 1.2
+Stable tag: 1.3-RC1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -33,8 +33,12 @@ Should you wish to use this plugin for custom post types, go to Settings > Prelo
 For more guidance on how to determine the URL to use, please use [my guide on how to determining the LCP image for a WordPress post](https://dwinrhys.com/preload-largest-contentful-paint-image-wordpress-plugin/?utm_source=wordpressorgtext&utm_medium=wordpress&utm_campaign=preload_lcp#determining-the-lcp-image)
 
 == Changelog ==
+= 1.3 =
+* Allow the user to fall back to "post thumbnail" if not specified.
+
 = 1.2 =
 * Fixes a bug that causes a console error that ignores the "as" types due to unknown “as” or “type” values, or non-matching “media” attribute.
+* Improves the UX of the page in question
 
 = 1.1 =
 * Allow the ability to specify different URLs for mobile or desktop viewpoints.

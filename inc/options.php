@@ -29,6 +29,14 @@ function preload_lcp_image_settings_init()
         'preload_LCP_Image',
         'preload_lcp_admin_section'
     );
+
+    add_settings_field(
+        'preload_lcp_default_to_featured_image',
+        __('Default to Featured Image', 'preload_lcp'),
+        'preload_lcp_default_to_featured_image_render',
+        'preload_LCP_Image',
+        'preload_lcp_admin_section'
+    );
 }
 add_action('admin_init', 'preload_lcp_image_settings_init');
 
@@ -66,12 +74,29 @@ function preload_lcp_post_type_settings_render()
                 $checkedval = "";
             }
 ?>
-            <input type='checkbox' name='preload_lcp_image_settings[preload_lcp_post_type_settings][]' value='<?php echo esc_attr( $post_type->name ); ?>' <?php echo esc_attr( $checkedval ); ?>><?php echo esc_attr( $post_type->label ); ?><br />
+            <input type='checkbox' name='preload_lcp_image_settings[preload_lcp_post_type_settings][]' value='<?php echo esc_attr($post_type->name); ?>' <?php echo esc_attr($checkedval); ?>><?php echo esc_attr($post_type->label); ?><br />
     <?php
         }
     }
     ?>
     <p class="description"><?php _e('Show the Preload LCP Image metabox on the chosen post type(s)', 'preload_lcp'); ?></p>
+<?php
+}
+
+
+/**
+ * Options render to show the featured image if not present
+ *
+ * @return void
+ */
+function preload_lcp_default_to_featured_image_render()
+{
+
+    $show_default = preload_lcp_get_option( 'preload_lcp_default_to_featured_image' );
+    
+?>
+    <input type='checkbox' name='preload_lcp_image_settings[preload_lcp_default_to_featured_image]' value='show_featured_image' <?php checked($show_default, 'show_featured_image', true) ?>>
+    <p class="description"><?php _e('Preload the featured image as the LCP image if not present', 'preload-lcp-image'); ?></p>
 <?php
 }
 

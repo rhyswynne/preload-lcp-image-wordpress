@@ -74,3 +74,58 @@ function preload_lcp_get_lcp_post_types()
 
     return $post_types_shown;
 }
+
+/**
+ * Wrapper function to get one option field
+ *
+ * @param  string $option_field  The option to return
+ * @return mixed                 The option we've returned, or false
+ */
+function preload_lcp_get_option( $option_field ) {
+    $all_options = get_option('preload_lcp_image_settings');
+
+    if (is_array($all_options)) {
+        if (array_key_exists($option_field, $all_options)) {
+            $option = $all_options[$option_field];
+        } else {
+            $option = false;
+        }
+    } else {
+        $option = false;
+    }
+
+    return $option;
+}
+
+
+/**
+ * Function to build the LCP Image
+ *
+ * @param  string $lcp_url The URL of the Preloaded LCP Image
+ * @param  mixed  $astype  The string as type, or false if not present.
+ * @param  mixed  $mime    The mime type of the image, or false if not present.
+ * @param  mixed  $srcset  The srcset of the image, or false if not present.
+ * @return string          The Preloaded LCP tag
+ */
+function preload_lcp_image_build_tag( $lcp_url, $astype = false, $mime = false, $srcset = false ) {
+    
+    $tag  = '<!-- Preload LCP Element - WordPress Plugin -->';
+    $tag .= '<link rel="preload" fetchpriority="high" ';
+    
+    if ($astype) { 
+        $tag .= ' as="' . esc_attr($astype) . '" ';
+    }
+    
+    $tag .= ' href="' . esc_attr($lcp_url) .'" '; 
+
+    if ($mime) {  
+        $tag .= ' type="' . esc_attr($mime) . '" '; 
+    } 
+    if ($srcset) { 
+        $tag .= ' imagesrcset="' . esc_attr($srcset) . '" '; 
+    }
+    
+    $tag .= '><!-- / Preload LCP Element - WordPress Plugin -->';
+
+    return $tag;
+}

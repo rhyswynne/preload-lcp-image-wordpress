@@ -8,19 +8,18 @@ function preload_lcp_display_header()
 
     if (is_singular()) {
 
-        if ( wp_is_mobile() ) {
+        if (wp_is_mobile()) {
             $id_field       = 'lcp_mobile_id_preload';
             $url_field      = 'lcp_mobile_url_preload';
             $force_as_field = 'lcp_mobile_force_as';
 
-            $temp_lcp_id  = get_post_meta( get_the_id(), $id_field, true);
-            $temp_lcp_url = get_post_meta( get_the_id(), $url_field, true);
+            $temp_lcp_id  = get_post_meta(get_the_id(), $id_field, true);
+            $temp_lcp_url = get_post_meta(get_the_id(), $url_field, true);
 
-            if ( !$temp_lcp_id && !$temp_lcp_url ) {
+            if (!$temp_lcp_id && !$temp_lcp_url) {
                 $id_field = 'lcp_id_preload';
                 $url_field = 'lcp_url_preload';
             }
-
         } else {
             $id_field       = 'lcp_id_preload';
             $url_field      = 'lcp_url_preload';
@@ -54,7 +53,7 @@ function preload_lcp_display_header()
             $mime       = false;
             $imagesize  = wp_getimagesize($lcp_url);
 
-            if ( !empty( $imagesize ) ) {
+            if (!empty($imagesize)) {
 
                 $mime       = wp_get_image_mime($lcp_url);
                 $as_array   = explode("/", $mime);
@@ -66,26 +65,56 @@ function preload_lcp_display_header()
 
 
             // If we want to force the "As" type, then we shall
-            if ( !$astype ) {
-                if ( get_post_meta(get_the_ID(), $force_as_field, true) ) {
+            if (!$astype) {
+                if (get_post_meta(get_the_ID(), $force_as_field, true)) {
                     $astype = 'image';
                 }
             }
 
+            echo preload_lcp_image_build_tag($lcp_url, $astype, $mime, $srcset);
+        } elseif (!$lcp_url) {
+            $show_default = preload_lcp_get_option('preload_lcp_default_to_featured_image');
 
-?>
-            <!-- Preload LCP Element - WordPress Plugin -->
-            <link rel="preload" fetchpriority="high" 
-            
-            <?php if ( $astype ) { ?> as="<?php echo esc_attr($astype); ?>" <?php } ?> 
-            
-            href="<?php echo esc_attr($lcp_url); ?>" 
-            
-            <?php if ($mime) { echo 'type="' . esc_attr($mime) . '"'; } ?> 
-            
-            <?php if ($srcset) { echo 'imagesrcset="' . esc_attr($srcset) . '"'; } ?>>
-            <!-- / Preload LCP Element - WordPress Plugin -->
-<?php
+            if ('show_featured_image' == $show_default) {
+                $post_thumbnail_id = get_post_thumbnail_id(get_the_ID());
+
+                if ($post_thumbnail_id) {
+                    $lcp_url = wp_get_attachment_image_url($post_thumbnail_id, 'full');
+                    $srcset  = wp_get_attachment_image_srcset($post_thumbnail_id, array(400, 200));
+
+                    $webp    = preload_lcp_check_if_webp_exists($post_thumbnail_id);
+
+                    if ($webp) {
+                        $image_type = preload_lcp_get_image_type_from_url($lcp_url);
+                        $lcp_url = str_replace('.' . $image_type, '.webp', $lcp_url);
+                        $srcset = str_replace('.' . $image_type, '.webp', $srcset);
+                    }
+
+                    $astype     = false;
+                    $mime       = false;
+                    $imagesize  = wp_getimagesize($lcp_url);
+
+                    if (!empty($imagesize)) {
+
+                        $mime       = wp_get_image_mime($lcp_url);
+                        $as_array   = explode("/", $mime);
+
+                        if (!empty($as_array)) {
+                            $astype = $as_array[0];
+                        }
+                    }
+
+
+                    // If we want to force the "As" type, then we shall
+                    if (!$astype) {
+                        if (get_post_meta(get_the_ID(), $force_as_field, true)) {
+                            $astype = 'image';
+                        }
+                    }
+
+                    echo preload_lcp_image_build_tag($lcp_url, $astype, $mime, $srcset);
+                }
+            }
         }
     }
 }
