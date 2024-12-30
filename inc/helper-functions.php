@@ -76,6 +76,31 @@ function preload_lcp_get_lcp_post_types()
 }
 
 /**
+ * Get the Taxonomiess to show the LCP Image metabox on
+ * 
+ * Used in case not set to show the default box
+ *
+ * @return array
+ */
+function preload_lcp_get_lcp_taxonomies()
+{
+
+    $options    = get_option('preload_lcp_image_settings');
+    
+    if (!is_array($options)) {
+        $taxonomies_shown = array('categories', 'post_tag');
+    } else {
+        if (!array_key_exists('preload_lcp_taxonomy_settings', $options)) {
+            $taxonomies_shown = array('categories', 'post_tag');
+        } else {
+            $taxonomies_shown = $options['preload_lcp_taxonomy_settings'];
+        }
+    }
+
+    return $taxonomies_shown;
+}
+
+/**
  * Wrapper function to get one option field
  *
  * @param  string $option_field  The option to return
