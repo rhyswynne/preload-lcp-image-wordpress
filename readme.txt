@@ -2,9 +2,9 @@
 Contributors: rhyswynne
 Tags: LCP, preload, site speed, site optimisation, Largest Contentful Paint
 Requires at least: 6.1.1
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 1.4
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -33,6 +33,13 @@ Should you wish to use this plugin for custom post types, go to Settings > Prelo
 For more guidance on how to determine the URL to use, please use [my guide on how to determining the LCP image for a WordPress post](https://dwinrhys.com/preload-largest-contentful-paint-image-wordpress-plugin/?utm_source=wordpressorgtext&utm_medium=wordpress&utm_campaign=preload_lcp#determining-the-lcp-image)
 
 == Changelog ==
+= 1.5 =
+* Make it work with AVIF images that image paths, not URLs, are used.
+* Fix display bugs meaning the CSS formatting on the admin page on mobile displays correctly.
+
+= 1.4.1 =
+* Tested with WordPress 6.8
+
 = 1.4 =
 * Added the ability to add a LCP image to Taxonomy Pages
 

@@ -11,15 +11,15 @@
  */
 function preload_lcp_check_if_webp_exists($image_id)
 {
+    
     $image_url   = wp_get_attachment_image_url($image_id, 'full');
+    $image_path  = wp_get_original_image_path($image_id);
 
-    $image_size  = wp_getimagesize($image_url);
-
+    $image_size  = wp_getimagesize($image_path);
     if (empty($image_size)) {
         return false;
     }
-
-    $image_type  = preload_lcp_get_image_type_from_url($image_url);
+    $image_type  = preload_lcp_get_image_type_from_url($image_url, $image_id);
     $image_path  = get_attached_file($image_id);
     $webp_path   = str_replace('.' . $image_type, '.webp', $image_path);
 
@@ -28,23 +28,33 @@ function preload_lcp_check_if_webp_exists($image_id)
     } else {
         return false;
     }
+    
 }
 
 
 /**
  * Get the image Type from the URL
  *
- * @param [type] $image_url
+ * @param  string $image_url The Image URL
+ * @param  integer $image_id  The Image ID (optional)
  * @return void
  */
-function preload_lcp_get_image_type_from_url($image_url)
+function preload_lcp_get_image_type_from_url($image_url, $image_id = false )
 {
-    $mime        = wp_get_image_mime($image_url);
+    if ( $image_id ) {
+        $image_path = wp_get_original_image_path( $image_id );
+        $mime        = wp_get_image_mime($image_path);
+    } else {
+        $mime        = wp_get_image_mime($image_url);
+    }
     $image_array = explode("/", $mime);
     $image_type  = false;
 
-    if (!empty($image_array)) {
-        $image_type = $image_array[1];
+    if (is_array($image_array)) {
+
+        if (sizeof($image_array) > 1 ) {
+            $image_type = $image_array[1];
+        }
     }
 
     return $image_type;
