@@ -328,3 +328,29 @@ if (!function_exists('dwinrhys_print_newsletter_box')) {
 <?php
     }
 }
+
+/**
+ * Check if the taxonomy we're showing is in the taxonomy shown
+ *
+ * @param  string  $taxonomy    The taxonomy we're checking  
+ * @return boolean              Whether the taxonomy is in the taxonomies shown or not
+ */
+function preload_lcp_check_in_taxonomy( $taxonomy ) {
+    $options    = get_option('preload_lcp_image_settings');
+
+    if (!is_array($options)) {
+        $taxonomies_shown = array('categories', 'post_tag');
+    } else {
+        if (!array_key_exists('preload_lcp_taxonomy_settings', $options)) {
+            $taxonomies_shown = array('categories', 'post_tag');
+        } else {
+            $taxonomies_shown = $options['preload_lcp_taxonomy_settings'];
+        }
+    }
+
+    if (in_array($taxonomy, $taxonomies_shown)) {
+        return true;
+    } else {
+        return false;
+    }
+}
